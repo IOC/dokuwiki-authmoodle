@@ -136,7 +136,7 @@ class auth_moodle extends auth_basic {
           	if (!function_exists('crypt')) {
                 return false;
             }
-            $hash = $result[0]['pass'];
+            $hash = preg_replace('/^\$2y/', '\$2a', $result[0]['pass']);
             $ret = crypt($pass, $hash);
             if (!is_string($ret) || strlen($ret) != strlen($hash) || strlen($ret) <= 13) {
                 return false;
